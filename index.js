@@ -16,13 +16,13 @@ dbConnection();
 */
 app.use( cors() )
 
+// Parse y lectura del body
+app.use( express.json() )
+
 // Rutas
-app.get('/', (req, res) => {
-    res.json({
-        ok : true,
-        msg: 'Hola mundo'
-    });
-});
+app.use('/api/usuarios', require('./routes/usuarios.route'))
+app.use('/api/login', require('./routes/auth.route'))
+
 
 
 
