@@ -37,4 +37,4 @@ UserSchema.method('toJSON', function(){
 });
 
 //Moongose agrega S al final del nombre del modelo
-module.exports = model( 'Usuario', UserSchema )
+module.exports = model( 'Usuario', UserSchema );

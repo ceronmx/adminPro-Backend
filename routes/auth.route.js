@@ -1,3 +1,7 @@
+/*
+    Auth
+    ruta: /api/login
+*/
 const { Router } = require('express');
 const { check } = require('express-validator');
 const { login } = require('../controllers/auth.controller');
