@@ -15,9 +15,11 @@ app.use( cors() )
 // Conexión a base de datos
 dbConnection();
 
+// Directorio público
+app.use(express.static('public'));
 
 // Parse y lectura del body
-app.use( express.json() )
+app.use( express.json() );
 
 // Rutas
 app.use('/api/usuarios', require('./routes/usuarios.route'));
