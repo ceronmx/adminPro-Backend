@@ -24,11 +24,15 @@ router.post('/', [
     check('hospital', 'El ID del hospital es inválido').isMongoId(),
     validarCampos
 ], crearMedicos);
-router.put('/:id', [
 
+router.put('/:id', [
+    validarJWT,
+    check('nombre', 'Falta nombre del médico').notEmpty(),
+    check('hospital', 'El ID del hospital es inválido').isMongoId(),
+    validarCampos
 ], actualizarMedicos);
 router.delete('/:id', [
-
+    validarJWT
 ], borrarMedicos);
 
 

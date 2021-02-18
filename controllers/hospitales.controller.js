@@ -6,10 +6,8 @@
 const { response } = require("express");
 const Hospital = require("../models/hospital.model");
 
-const getHospitales = async(req, res = response) => {
-  
-  const hospitales = await Hospital.find()
-                                   .populate('usuario', 'nombre email');
+const getHospitales = async (req, res = response) => {
+  const hospitales = await Hospital.find().populate("usuario", "nombre email");
 
   res.json({
     ok: true,
@@ -41,18 +39,64 @@ const crearHospitales = async (req, res = response) => {
   }
 };
 
-const actualizarHospitales = (req, res = response) => {
-  res.json({
-    ok: true,
-    msg: "actualizarHospitales",
-  });
+const actualizarHospitales = async (req, res = response) => {
+  const id = req.params.id;
+  const uid = req.uid;
+
+  try {
+    const hospital = await Hospital.findById(id);
+    if (!hospital) {
+      return res.status(404).json({
+        ok: false,
+        msg: "Hospital no encontrado",
+      });
+    }
+
+    const cambios = {
+      ...req.body,
+      usuario: uid,
+    };
+
+    const hospitalActualizado = await Hospital.findByIdAndUpdate(id, cambios, {
+      new: true,
+    });
+
+    res.json({
+      ok: true,
+      hospital: hospitalActualizado,
+    });
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: "Error inesperado, revise logs o contacte al administrador",
+    });
+  }
 };
 
-const borrarHospitales = (req, res = response) => {
-  res.json({
-    ok: true,
-    msg: "borrarHospitales",
-  });
+const borrarHospitales = async (req, res = response) => {
+  const id = req.params.id;
+
+  try {
+    const hospital = await Hospital.findById(id);
+    if (!hospital) {
+      res.status(404).json({
+        ok: true,
+        msg: "Hospital no encontrado",
+      });
+    }
+
+    await Hospital.findByIdAndDelete(id)
+
+    res.json({
+      ok: true,
+      msg: "Hospital eliminado",
+    });
+  } catch (error) {
+    res.status(500).json({
+      ok: true,
+      msg: "Error inesperado, revise logs o contacte al administrador",
+    });
+  }
 };
 
 module.exports = {

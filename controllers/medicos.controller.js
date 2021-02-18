@@ -4,6 +4,7 @@
 */
 const { response } = require("express");
 const Medico = require("../models/medico.model");
+const Hospital = require("../models/hospital.model");
 
 const getMedicos = async(req, res = response) => {
 
@@ -42,18 +43,70 @@ const crearMedicos = async(req, res = response) => {
   }
 };
 
-const actualizarMedicos = (req, res = response) => {
-  res.json({
-    ok: true,
-    msg: "actualizarMedicos",
-  });
+const actualizarMedicos = async (req, res = response) => {
+  const medicoId = req.params.id;
+  const hospitalId = req.body.hospital;
+  const uid = req.uid;
+
+  try {
+    const medico = await Medico.findById(medicoId);
+    const hospital = await Hospital.findById(hospitalId);
+    if  (!medico || !hospital) {
+      return res.status(404).json({
+        ok: false,
+        msg: "Hospital o médico no encontrado",
+      }); 
+    }
+
+    const cambios = {
+      ...req.body,
+      usuario: uid
+    }
+
+    const medicoActualizado = await Medico.findByIdAndUpdate(medicoId, cambios, {new: true});
+
+     res.json({
+      ok: true,
+      msg: "actualizarMedicos",
+      medico: medicoActualizado
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error inesperado, revise los logs o contacte al administrador",
+    });  
+  }
 };
 
-const borrarMedicos = (req, res = response) => {
-  res.json({
-    ok: true,
-    msg: "borrarMedicos",
-  });
+const borrarMedicos = async (req, res = response) => {
+  const id = req.params.id;
+
+  try {
+    const medico = await Medico.findById(id);
+    if(!medico){
+      res.status(404).json({
+        ok: false,
+        msg: "Médico no encontrado",
+      });  
+    }
+
+    await Medico.findByIdAndDelete(id);
+
+    res.json({
+      ok: true,
+      msg: "Médico eliminado",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Error inesperado, revise los logs o contacte al administrador",
+    });  
+  }
+
+
+
 };
 
 module.exports = {
