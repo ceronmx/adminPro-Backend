@@ -1,8 +1,8 @@
 require('dotenv').config();
 
 const express = require('express');
-const {dbConnection} = require('./database/config');
 const cors = require('cors');
+const {dbConnection} = require('./database/config');
 
 
 // Se crea servidor express
@@ -11,7 +11,7 @@ const app = express();
 /* Inicia cors 
    (Intercambio de origen cruzado: Solicitar recursos restringidos en una página web desde un dominio diferente)
 */
-app.use( cors() )
+app.use( cors() );
 // Conexión a base de datos
 dbConnection();
 
