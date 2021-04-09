@@ -1,41 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Demo Sign In</title>
 
-    <meta
-      name="google-signin-client_id"
-      content="455877504568-5d4oqes7q7j921ectbiln6blrkbe4rs9.apps.googleusercontent.com"
-    />
-  </head>
-  <body>
-    <h1>Google Sign In</h1>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <a href="#" onclick="signOut();">Sign out</a>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+<head>
+  <meta charset="utf-8">
+  <title>AdminPro</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script>
-      function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        console.log("Name: " + profile.getName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+  <!-- Google sign in -->
+  <meta name="google-signin-client_id" content="455877504568-5d4oqes7q7j921ectbiln6blrkbe4rs9.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js"></script>
 
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log(id_token);
+  <!-- Favicon icon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+  <!-- Bootstrap Core CSS -->
+  <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="../assets/css/style.css" rel="stylesheet">
+  <!-- You can change the theme colors from here -->
+  <link id="theme" rel="stylesheet">
 
-      }
+<link rel="stylesheet" href="styles.03401a014e63cf211d1b.css"></head>
 
-      function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-          console.log("User signed out.");
-        });
-      }
-    </script>
-  </body>
+<body class="fix-header card-no-border fix-sidebar">
+
+  <!-- ============================================================== -->
+  <!-- Preloader - style you can find in spinners.css -->
+  <!-- ============================================================== -->
+  <div class="preloader">
+    <div class="loader">
+      <div class="loader__figure"></div>
+      <p class="loader__label">Admin Pro</p>
+    </div>
+  </div>
+
+
+  <app-root></app-root>
+
+
+
+
+
+  <!-- All Jquery -->
+  <!-- ============================================================== -->
+  <script src="../assets/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap tether Core JavaScript -->
+  <script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
+  <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+  <!-- slimscrollbar scrollbar JavaScript -->
+  <script src="../assets/js/perfect-scrollbar.jquery.min.js"></script>
+  <!--Wave Effects -->
+  <script src="../assets/js/waves.js"></script>
+  <!--Menu sidebar -->
+  <script src="../assets/js/sidebarmenu.js"></script>
+  <!--stickey kit -->
+  <script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+  <script src="../assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+  <!--Custom JavaScript -->
+  <script src="../assets/js/custom.js"></script>
+  <!-- ============================================================== -->
+<script src="runtime.66d30f3cab0cf3b50194.js" defer></script><script src="polyfills.8c151b8375e767ff858f.js" defer></script><script src="main.ff77d9794ae4704fee33.js" defer></script></body>
+
 </html>
